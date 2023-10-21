@@ -28,7 +28,15 @@ public class ZombieScript : MonoBehaviour
     public void KillZombie()
     {
         // ADD CODE HERE
-
+        parentSpawner.ZombieHasDied();
+        Destroy(gameObject);
         // END OF CODE
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Player")
+        {
+            collision.collider.GetComponent<HealthScript>().ChangeHealth(-100);
+        }
     }
 }

@@ -5,22 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Menu/Scenes/MainMenu.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Guessing the Number/Guessing Minigame.unity
     guid: 42934ac12075046b38ac2ca79d34f3ee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Stay in the Zone/Stay In the Zone Minigame.unity
     guid: 4f99390d7d743476c8afe8b8a677430c
   - enabled: 1
     path: Assets/Zombie Attack/Zombie Attack Minigame.unity
     guid: 6123bc44b1a3841a1bc1632414b158a1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Collect-a-thon/Collect-a-thon Minigame.unity
     guid: dfe1c7331951b4a4594accdfc04b4e4f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Cannonball/Cannonball Minigame.unity
     guid: bd2f538a2fc3a45d491b49ad5a9043c0
   m_configObjects: {}

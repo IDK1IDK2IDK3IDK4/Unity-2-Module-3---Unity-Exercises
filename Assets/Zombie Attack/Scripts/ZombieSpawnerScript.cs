@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class ZombieSpawnerScript : MonoBehaviour
 {
+    public float spawnTime = 4;
     public GameObject zombiePrefab;
     public Transform target;
 
@@ -14,7 +15,8 @@ public class ZombieSpawnerScript : MonoBehaviour
 
     void Start()
     {
-        SpawnZombie();
+        //SpawnZombie();
+        InvokeRepeating("SpawnZombie", 2, spawnTime);
     }
 
     public Vector3 RandomPosition()
@@ -25,8 +27,14 @@ public class ZombieSpawnerScript : MonoBehaviour
     public void SpawnZombie()
     {
         // ADD CODE HERE
-
+        GameObject instance;
+        instance = Instantiate(zombiePrefab, RandomPosition(), Quaternion.identity);
+        instance.GetComponent<ZombieScript>().Init(target, this);
         // END OF CODE
+    }
+    IEnumerator ZombieSpawnRepeater()
+    {
+        yield return new WaitForSeconds(spawnTime);
     }
 
     public void ZombieHasDied()

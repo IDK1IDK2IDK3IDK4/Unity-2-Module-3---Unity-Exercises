@@ -8,6 +8,7 @@ public class FireProjectile : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletActiveTime = 3;
     public float bulletPower = 10;
+    public float bulletTime = 0;
 
     public GameObject firepoint;
 
@@ -16,21 +17,42 @@ public class FireProjectile : MonoBehaviour
     public float reloadTime = 3f;
 
     private float ammoCount;
+    float nextShotTime;
+
+    bool reloading;
+    AudioSource aud;
+
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         ammoCount = maxAmmo;
         ammoText.text = $"Ammo: {ammoCount}";
+        aud = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && ammoCount > 0)
+        if(Input.GetButton("Fire1") && ammoCount > 0 && Time.time >= nextShotTime)
         {
             // ADD CODE HERE
-
+            GameObject instance;
+            instance = Instantiate(bulletPrefab, firepoint.transform.position, firepoint.transform.rotation);
+            Vector3 fireDir = transform.forward;
+            if(Input.GetButton("Fire2"))
+            {
+                fireDir = Camera.main.transform.forward;
+            }
+            instance.GetComponent<BulletScript>().FireBullet(fireDir, bulletPower);
+            ammoCount -= 1;
             // END OF CODE
             ammoText.text = $"Ammo: {ammoCount}";
+            nextShotTime = Time.time + bulletTime;
+        }
+        if(ammoCount <= 0 && !reloading)
+        {
+            StartCoroutine(Reloading());
         }
 
 
@@ -44,6 +66,11 @@ public class FireProjectile : MonoBehaviour
 
     public IEnumerator Reloading()
     {
-        yield return new WaitForSeconds(0);
+        reloading = true;
+        print("RELOADING!!!");
+        aud.Play();
+        yield return new WaitForSeconds(reloadTime);
+        ammoCount = maxAmmo;
+        reloading = false;
     }
 }
